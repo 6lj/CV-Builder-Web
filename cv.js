@@ -2,17 +2,17 @@ function updatePreview() {
     document.getElementById('previewName').textContent = document.getElementById('fullName').value || 'Your Name';
     document.getElementById('previewPhone').innerHTML = `
         <span class="contact-icon">
-            <img src="A.png" alt="Phone Icon">
+            <img src="https://6lj.github.io/CV-Builder-Web/A.png" alt="Phone Icon">
         </span>
         <span>${document.getElementById('phone').value || 'Phone'}</span>`;
     document.getElementById('previewEmail').innerHTML = `
         <span class="contact-icon">
-            <img src="B.png" alt="Email Icon">
+            <img src="https://6lj.github.io/CV-Builder-Web/B.png" alt="Email Icon">
         </span>
         <span><a href="mailto:${document.getElementById('email').value || 'email@example.com'}">${document.getElementById('email').value || 'Email'}</a></span>`;
     document.getElementById('previewLocation').innerHTML = `
         <span class="contact-icon">
-            <img src="L.png" alt="Location Icon">
+            <img src="https://6lj.github.io/CV-Builder-Web/L.png" alt="Location Icon">
         </span>
         <span>${document.getElementById('location').value || 'Location'}</span>`;
     
