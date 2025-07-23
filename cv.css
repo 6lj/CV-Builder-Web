@@ -1,3 +1,27 @@
+
+.pdf-render-mode {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    padding: 10mm 8mm !important;
+    box-sizing: border-box !important;
+    background: white !important;
+    font-size: 9pt !important;
+    line-height: 1.2 !important;
+    border: 4px solid #2c3e50 !important;
+    box-shadow: none !important; 
+    overflow: hidden !important;
+    color: #333 !important;
+    transform: none !important; 
+}
+
+.pdf-render-body {
+    transform: none !important; 
+    -webkit-text-size-adjust: 100% !important; 
+    touch-action: auto !important; 
+    overflow-x: hidden !important; 
+}
+
+/* Existing styles below (no changes needed for existing ones) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 * {
@@ -468,6 +492,7 @@ textarea.form-input {
 }
 
 @media print {
+    /* Existing print styles - ensure these are robust */
     .cv-container {
         width: 210mm;
         height: 297mm;
