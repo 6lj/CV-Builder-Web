@@ -1,5 +1,3 @@
-
-
 function updatePreview() {
     document.getElementById('previewName').textContent = document.getElementById('fullName').value || 'Your Name';
 
@@ -27,23 +25,22 @@ function updatePreview() {
     updateLanguagesPreview();
 }
 
-
 function updateExperiencePreview() {
     const container = document.getElementById('previewExperience');
     const experiences = document.querySelectorAll('#experienceContainer .dynamic-section');
-    
+
     if (experiences.length === 0) {
         container.innerHTML = 'Your experience will appear here...';
         return;
     }
-    
+
     let html = '';
     experiences.forEach(exp => {
         const company = exp.querySelector('.exp-company').value;
         const position = exp.querySelector('.exp-position').value;
         const duration = exp.querySelector('.exp-duration').value;
         const description = exp.querySelector('.exp-description').value;
-        
+
         if (company || position) {
             html += `
                 <div class="job-item">
@@ -56,26 +53,26 @@ function updateExperiencePreview() {
             `;
         }
     });
-    
+
     container.innerHTML = html || 'Your experience will appear here...';
 }
 
 function updateEducationPreview() {
     const container = document.getElementById('previewEducation');
     const educations = document.querySelectorAll('#educationContainer .dynamic-section');
-    
+
     if (educations.length === 0) {
         container.innerHTML = 'Your education will appear here...';
         return;
     }
-    
+
     let html = '';
     educations.forEach(edu => {
         const institution = edu.querySelector('.edu-institution').value;
         const degree = edu.querySelector('.edu-degree').value;
         const year = edu.querySelector('.edu-year').value;
         const description = edu.querySelector('.edu-description').value;
-        
+
         if (institution || degree) {
             html += `
                 <div class="education-item">
@@ -86,7 +83,7 @@ function updateEducationPreview() {
             `;
         }
     });
-    
+
     container.innerHTML = html || 'Your education will appear here...';
 }
 
@@ -118,7 +115,7 @@ function updateCertificationsPreview() {
 }
 
 function updateSkillsPreview() {
-    // Hard Skills
+
     const hardSkillsContainer = document.getElementById('previewHardSkills');
     const hardSkills = document.querySelectorAll('#hardSkillsContainer .dynamic-section');
     let hardSkillsHtml = '';
@@ -130,7 +127,6 @@ function updateSkillsPreview() {
     });
     hardSkillsContainer.innerHTML = hardSkillsHtml || '<li>Your technical skills will appear here</li>';
 
-    // Soft Skills
     const softSkillsContainer = document.getElementById('previewSoftSkills');
     const softSkills = document.querySelectorAll('#softSkillsContainer .dynamic-section');
     let softSkillsHtml = '';
@@ -160,7 +156,7 @@ function updateLanguagesPreview() {
             html += `<span>${langName} (${langLevel})</span>`;
         }
     });
-    
+
     container.innerHTML = html || 'Your languages will appear here';
 }
 
@@ -275,7 +271,6 @@ function addSoftSkill() {
     addEventListeners(newSkill);
 }
 
-
 function addLanguage() {
     const container = document.getElementById('languagesContainer');
     const newLang = document.createElement('div');
@@ -324,28 +319,31 @@ function goToPage(pageNumber) {
     updatePreview();
 }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-
-
-
 async function downloadPDF() {
     const cvElement = document.getElementById('cvPreview');
     const button = document.querySelector('.download-btn');
-    
+
     button.textContent = 'Generating PDF...';
     button.disabled = true;
 
     cvElement.classList.add('pdf-render-mode');
     document.body.classList.add('pdf-render-body');
-    
+
     try {
-        const imgData = await domtoimage.toJpeg(cvElement, {
-            quality: 0.85,
-            bgcolor: '#ffffff',
-            width: 794, // A4 width at 96 DPI
-            height: 1123 // A4 height at 96 DPI
+
+        const canvas = await html2canvas(cvElement, {
+            backgroundColor: '#ffffff',
+            scale: 2, 
+            width: 794,
+            height: 1123,
+            useCORS: true, 
+            logging: false 
         });
-        
+        const imgData = canvas.toDataURL('image/jpeg', 0.85);
+
+        if (!window.jspdf) {
+            throw new Error('jsPDF library not loaded');
+        }
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({
             orientation: 'portrait',
@@ -353,14 +351,11 @@ async function downloadPDF() {
             format: 'a4',
             compress: true
         });
-        
+
         const pdfWidth = 210;
         const pdfHeight = 297;
-        const img = new Image();
-        img.src = imgData;
-        await new Promise(resolve => { img.onload = resolve; });
-        const imgWidth = img.width;
-        const imgHeight = img.height;
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
         const ratio = imgWidth / imgHeight;
 
         let finalPdfWidth = pdfWidth;
@@ -378,10 +373,10 @@ async function downloadPDF() {
         const yOffset = (pdfHeight - finalPdfHeight) / 2;
 
         pdf.addImage(imgData, 'JPEG', xOffset, yOffset, finalPdfWidth, finalPdfHeight);
-        
+
         const name = document.getElementById('fullName').value || 'CV';
         pdf.save(`${name}_CV.pdf`);
-        
+
     } catch (error) {
         console.error('Error generating PDF:', error);
         alert(`Error generating PDF: ${error.message}. Please try again or use a different browser.`);
@@ -399,10 +394,10 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener('input', updatePreview);
         input.addEventListener('change', updatePreview);
     });
-    
+
     document.querySelectorAll('.dynamic-section').forEach(section => {
         addEventListeners(section);
     });
-    
+
     updatePreview();
 });

@@ -1,6 +1,3 @@
-/* cv.css */
-
-/* Add these new styles for PDF rendering */
 .pdf-render-mode {
     width: 210mm !important;
     min-height: 297mm !important;
@@ -10,20 +7,19 @@
     font-size: 9pt !important;
     line-height: 1.2 !important;
     border: 4px solid #2c3e50 !important;
-    box-shadow: none !important; /* Remove shadows for clean PDF */
+    box-shadow: none !important; 
     overflow: hidden !important;
     color: #333 !important;
-    transform: none !important; /* Remove any scaling */
+    transform: none !important; 
 }
 
 .pdf-render-body {
-    transform: none !important; /* Ensure body transform is reset */
-    -webkit-text-size-adjust: 100% !important; /* Reset text size adjustment */
-    touch-action: auto !important; /* Reset touch action */
-    overflow-x: hidden !important; /* Prevent horizontal scroll for PDF capture */
+    transform: none !important; 
+    -webkit-text-size-adjust: 100% !important; 
+    touch-action: auto !important; 
+    overflow-x: hidden !important; 
 }
 
-/* Existing styles below (no changes needed for existing ones) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 * {
@@ -494,7 +490,7 @@ textarea.form-input {
 }
 
 @media print {
-    /* Existing print styles - ensure these are robust */
+    
     .cv-container {
         width: 210mm;
         height: 297mm;
@@ -601,4 +597,37 @@ textarea.form-input {
     .button-group .submit-btn {
         max-width: 100%;
     }
+}
+.contact-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.icon-phone::before {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24a11.72 11.72 0 003.57.57c.55 0 1 .45 1 1V20a1 1 0 01-1 1C12.61 21 5 13.39 5 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.2 2.2z'/%3E%3C/svg%3E");
+}
+
+.icon-email::before {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/%3E%3C/svg%3E");
+}
+
+.icon-location::before {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1114.5 9 2.5 2.5 0 0112 11.5z'/%3E%3C/svg%3E");
 }
