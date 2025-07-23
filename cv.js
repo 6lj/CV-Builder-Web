@@ -324,6 +324,10 @@ function goToPage(pageNumber) {
     updatePreview();
 }
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+
+
+
 async function downloadPDF() {
     const cvElement = document.getElementById('cvPreview');
     const button = document.querySelector('.download-btn');
@@ -331,18 +335,15 @@ async function downloadPDF() {
     button.textContent = 'Generating PDF...';
     button.disabled = true;
 
-    // Temporarily apply PDF-specific styles to ensure consistent rendering
     cvElement.classList.add('pdf-render-mode');
     document.body.classList.add('pdf-render-body');
     
     try {
-        const canvas = await html2canvas(cvElement, {
-            scale: 2, // Higher scale for better quality
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: '#ffffff', // Ensure a white background for the PDF
-            imageTimeout: 15000,
-            logging: false
+        const imgData = await domtoimage.toJpeg(cvElement, {
+            quality: 0.85,
+            bgcolor: '#ffffff',
+            width: 794, // A4 width at 96 DPI
+            height: 1123 // A4 height at 96 DPI
         });
         
         const { jsPDF } = window.jspdf;
@@ -353,18 +354,18 @@ async function downloadPDF() {
             compress: true
         });
         
-        const imgData = canvas.toDataURL('image/jpeg', 0.9);
-        const pdfWidth = 210; // A4 width in mm
-        const pdfHeight = 297; // A4 height in mm
-        
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
+        const pdfWidth = 210;
+        const pdfHeight = 297;
+        const img = new Image();
+        img.src = imgData;
+        await new Promise(resolve => { img.onload = resolve; });
+        const imgWidth = img.width;
+        const imgHeight = img.height;
         const ratio = imgWidth / imgHeight;
 
         let finalPdfWidth = pdfWidth;
         let finalPdfHeight = pdfHeight;
 
-        // Adjust dimensions to fit within A4 while maintaining aspect ratio
         if (imgWidth > imgHeight) {
             finalPdfWidth = pdfHeight * ratio;
             finalPdfHeight = pdfHeight;
@@ -383,9 +384,8 @@ async function downloadPDF() {
         
     } catch (error) {
         console.error('Error generating PDF:', error);
-        alert('Error generating PDF. Please try again.');
+        alert(`Error generating PDF: ${error.message}. Please try again or use a different browser.`);
     } finally {
-        // Remove PDF-specific styles
         cvElement.classList.remove('pdf-render-mode');
         document.body.classList.remove('pdf-render-body');
         button.textContent = 'Download CV as PDF';
