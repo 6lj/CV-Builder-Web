@@ -1,38 +1,27 @@
-
-
 function updatePreview() {
-
     document.getElementById('previewName').textContent = document.getElementById('fullName').value || 'Your Name';
     document.getElementById('previewPhone').innerHTML = `
         <span class="contact-icon">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.2 2.2z'/%3E%3C/svg%3E" alt="Phone Icon">
+            <img src="A.png" alt="Phone Icon">
         </span>
         <span>${document.getElementById('phone').value || 'Phone'}</span>`;
     document.getElementById('previewEmail').innerHTML = `
         <span class="contact-icon">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/%3E%3C/svg%3E" alt="Email Icon">
+            <img src="B.png" alt="Email Icon">
         </span>
         <span><a href="mailto:${document.getElementById('email').value || 'email@example.com'}">${document.getElementById('email').value || 'Email'}</a></span>`;
     document.getElementById('previewLocation').innerHTML = `
         <span class="contact-icon">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E" alt="Location Icon">
+            <img src="L.png" alt="Location Icon">
         </span>
         <span>${document.getElementById('location').value || 'Location'}</span>`;
     
-  
     document.getElementById('previewSummary').textContent = document.getElementById('summary').value || 'Your professional summary will appear here...';
     
-   
     updateExperiencePreview();
-
     updateEducationPreview();
-    
-  
     updateCertificationsPreview();
-    
-    
     updateSkillsPreview();
-  
     updateLanguagesPreview();
 }
 
@@ -283,7 +272,6 @@ function addSoftSkill() {
     addEventListeners(newSkill);
 }
 
-
 function addLanguage() {
     const container = document.getElementById('languagesContainer');
     const newLang = document.createElement('div');
@@ -372,7 +360,6 @@ async function downloadPDF() {
         let finalPdfWidth = pdfWidth;
         let finalPdfHeight = pdfHeight;
 
-       
         if (imgWidth > imgHeight) {
             finalPdfWidth = pdfHeight * ratio;
             finalPdfHeight = pdfHeight;
@@ -393,7 +380,6 @@ async function downloadPDF() {
         console.error('Error generating PDF:', error);
         alert('Error generating PDF. Please try again.');
     } finally {
-  
         cvElement.classList.remove('pdf-render-mode');
         document.body.classList.remove('pdf-render-body');
         button.textContent = 'Download CV as PDF';
