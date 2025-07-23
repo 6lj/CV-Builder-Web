@@ -1,46 +1,58 @@
 function updatePreview() {
+    // EDITABLE: Personal Info Update
+    // Add more contact fields (e.g., LinkedIn) or modify formatting
     document.getElementById('previewName').textContent = document.getElementById('fullName').value || 'Your Name';
-
     document.getElementById('previewPhone').innerHTML = `
-        <span class="contact-icon icon-phone"></span>
+        <span class="contact-icon">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.2 2.2z'/%3E%3C/svg%3E" alt="Phone Icon">
+        </span>
         <span>${document.getElementById('phone').value || 'Phone'}</span>`;
-
     document.getElementById('previewEmail').innerHTML = `
-        <span class="contact-icon icon-email"></span>
-        <span><a href="mailto:${document.getElementById('email').value || 'email@example.com'}">
-            ${document.getElementById('email').value || 'Email'}
-        </a></span>`;
-
+        <span class="contact-icon">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/%3E%3C/svg%3E" alt="Email Icon">
+        </span>
+        <span><a href="mailto:${document.getElementById('email').value || 'email@example.com'}">${document.getElementById('email').value || 'Email'}</a></span>`;
     document.getElementById('previewLocation').innerHTML = `
-        <span class="contact-icon icon-location"></span>
+        <span class="contact-icon">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E" alt="Location Icon">
+        </span>
         <span>${document.getElementById('location').value || 'Location'}</span>`;
-
-    document.getElementById('previewSummary').textContent =
-        document.getElementById('summary').value || 'Your professional summary will appear here...';
-
+    
+    // Summary
+    document.getElementById('previewSummary').textContent = document.getElementById('summary').value || 'Your professional summary will appear here...';
+    
+    // Experience
     updateExperiencePreview();
+    
+    // Education
     updateEducationPreview();
+    
+    // Certifications
     updateCertificationsPreview();
+    
+    // Skills
     updateSkillsPreview();
+    
+    // Languages
     updateLanguagesPreview();
 }
 
 function updateExperiencePreview() {
     const container = document.getElementById('previewExperience');
     const experiences = document.querySelectorAll('#experienceContainer .dynamic-section');
-
+    
     if (experiences.length === 0) {
         container.innerHTML = 'Your experience will appear here...';
         return;
     }
-
+    
     let html = '';
     experiences.forEach(exp => {
         const company = exp.querySelector('.exp-company').value;
         const position = exp.querySelector('.exp-position').value;
         const duration = exp.querySelector('.exp-duration').value;
         const description = exp.querySelector('.exp-description').value;
-
+        
         if (company || position) {
             html += `
                 <div class="job-item">
@@ -53,26 +65,26 @@ function updateExperiencePreview() {
             `;
         }
     });
-
+    
     container.innerHTML = html || 'Your experience will appear here...';
 }
 
 function updateEducationPreview() {
     const container = document.getElementById('previewEducation');
     const educations = document.querySelectorAll('#educationContainer .dynamic-section');
-
+    
     if (educations.length === 0) {
         container.innerHTML = 'Your education will appear here...';
         return;
     }
-
+    
     let html = '';
     educations.forEach(edu => {
         const institution = edu.querySelector('.edu-institution').value;
         const degree = edu.querySelector('.edu-degree').value;
         const year = edu.querySelector('.edu-year').value;
         const description = edu.querySelector('.edu-description').value;
-
+        
         if (institution || degree) {
             html += `
                 <div class="education-item">
@@ -83,7 +95,7 @@ function updateEducationPreview() {
             `;
         }
     });
-
+    
     container.innerHTML = html || 'Your education will appear here...';
 }
 
@@ -115,7 +127,7 @@ function updateCertificationsPreview() {
 }
 
 function updateSkillsPreview() {
-
+    // Hard Skills
     const hardSkillsContainer = document.getElementById('previewHardSkills');
     const hardSkills = document.querySelectorAll('#hardSkillsContainer .dynamic-section');
     let hardSkillsHtml = '';
@@ -127,6 +139,7 @@ function updateSkillsPreview() {
     });
     hardSkillsContainer.innerHTML = hardSkillsHtml || '<li>Your technical skills will appear here</li>';
 
+    // Soft Skills
     const softSkillsContainer = document.getElementById('previewSoftSkills');
     const softSkills = document.querySelectorAll('#softSkillsContainer .dynamic-section');
     let softSkillsHtml = '';
@@ -156,7 +169,7 @@ function updateLanguagesPreview() {
             html += `<span>${langName} (${langLevel})</span>`;
         }
     });
-
+    
     container.innerHTML = html || 'Your languages will appear here';
 }
 
@@ -271,6 +284,7 @@ function addSoftSkill() {
     addEventListeners(newSkill);
 }
 
+
 function addLanguage() {
     const container = document.getElementById('languagesContainer');
     const newLang = document.createElement('div');
@@ -322,28 +336,20 @@ function goToPage(pageNumber) {
 async function downloadPDF() {
     const cvElement = document.getElementById('cvPreview');
     const button = document.querySelector('.download-btn');
-
+    
     button.textContent = 'Generating PDF...';
     button.disabled = true;
-
-    cvElement.classList.add('pdf-render-mode');
-    document.body.classList.add('pdf-render-body');
-
+    
     try {
-
         const canvas = await html2canvas(cvElement, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
             backgroundColor: '#ffffff',
-            scale: 2, 
-            width: 794,
-            height: 1123,
-            useCORS: true, 
-            logging: false 
+            imageTimeout: 15000,
+            logging: false
         });
-        const imgData = canvas.toDataURL('image/jpeg', 0.85);
-
-        if (!window.jspdf) {
-            throw new Error('jsPDF library not loaded');
-        }
+        
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({
             orientation: 'portrait',
@@ -351,9 +357,11 @@ async function downloadPDF() {
             format: 'a4',
             compress: true
         });
-
+        
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
         const pdfWidth = 210;
         const pdfHeight = 297;
+        
         const imgWidth = canvas.width;
         const imgHeight = canvas.height;
         const ratio = imgWidth / imgHeight;
@@ -373,19 +381,17 @@ async function downloadPDF() {
         const yOffset = (pdfHeight - finalPdfHeight) / 2;
 
         pdf.addImage(imgData, 'JPEG', xOffset, yOffset, finalPdfWidth, finalPdfHeight);
-
+        
         const name = document.getElementById('fullName').value || 'CV';
         pdf.save(`${name}_CV.pdf`);
-
+        
     } catch (error) {
         console.error('Error generating PDF:', error);
-        alert(`Error generating PDF: ${error.message}. Please try again or use a different browser.`);
-    } finally {
-        cvElement.classList.remove('pdf-render-mode');
-        document.body.classList.remove('pdf-render-body');
-        button.textContent = 'Download CV as PDF';
-        button.disabled = false;
+        alert('Error generating PDF. Please try again.');
     }
+    
+    button.textContent = 'Download CV as PDF';
+    button.disabled = false;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -394,10 +400,10 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener('input', updatePreview);
         input.addEventListener('change', updatePreview);
     });
-
+    
     document.querySelectorAll('.dynamic-section').forEach(section => {
         addEventListeners(section);
     });
-
+    
     updatePreview();
 });
