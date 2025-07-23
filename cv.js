@@ -1,6 +1,7 @@
+
+
 function updatePreview() {
-    // EDITABLE: Personal Info Update
-    // Add more contact fields (e.g., LinkedIn) or modify formatting
+
     document.getElementById('previewName').textContent = document.getElementById('fullName').value || 'Your Name';
     document.getElementById('previewPhone').innerHTML = `
         <span class="contact-icon">
@@ -18,22 +19,20 @@ function updatePreview() {
         </span>
         <span>${document.getElementById('location').value || 'Location'}</span>`;
     
-    // Summary
+  
     document.getElementById('previewSummary').textContent = document.getElementById('summary').value || 'Your professional summary will appear here...';
     
-    // Experience
+   
     updateExperiencePreview();
-    
-    // Education
+
     updateEducationPreview();
     
-    // Certifications
+  
     updateCertificationsPreview();
     
-    // Skills
-    updateSkillsPreview();
     
-    // Languages
+    updateSkillsPreview();
+  
     updateLanguagesPreview();
 }
 
@@ -339,13 +338,17 @@ async function downloadPDF() {
     
     button.textContent = 'Generating PDF...';
     button.disabled = true;
+
+    // Temporarily apply PDF-specific styles to ensure consistent rendering
+    cvElement.classList.add('pdf-render-mode');
+    document.body.classList.add('pdf-render-body');
     
     try {
         const canvas = await html2canvas(cvElement, {
-            scale: 2,
+            scale: 2, // Higher scale for better quality
             useCORS: true,
             allowTaint: true,
-            backgroundColor: '#ffffff',
+            backgroundColor: '#ffffff', // Ensure a white background for the PDF
             imageTimeout: 15000,
             logging: false
         });
@@ -359,8 +362,8 @@ async function downloadPDF() {
         });
         
         const imgData = canvas.toDataURL('image/jpeg', 0.9);
-        const pdfWidth = 210;
-        const pdfHeight = 297;
+        const pdfWidth = 210; // A4 
+        const pdfHeight = 297; 
         
         const imgWidth = canvas.width;
         const imgHeight = canvas.height;
@@ -369,6 +372,7 @@ async function downloadPDF() {
         let finalPdfWidth = pdfWidth;
         let finalPdfHeight = pdfHeight;
 
+       
         if (imgWidth > imgHeight) {
             finalPdfWidth = pdfHeight * ratio;
             finalPdfHeight = pdfHeight;
@@ -388,10 +392,13 @@ async function downloadPDF() {
     } catch (error) {
         console.error('Error generating PDF:', error);
         alert('Error generating PDF. Please try again.');
+    } finally {
+  
+        cvElement.classList.remove('pdf-render-mode');
+        document.body.classList.remove('pdf-render-body');
+        button.textContent = 'Download CV as PDF';
+        button.disabled = false;
     }
-    
-    button.textContent = 'Download CV as PDF';
-    button.disabled = false;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
