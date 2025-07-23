@@ -1,5 +1,7 @@
 
 
+
+
 function updatePreview() {
     document.getElementById('previewName').textContent = document.getElementById('fullName').value || 'Your Name';
 
@@ -385,7 +387,7 @@ async function downloadPDF() {
         console.error('Error generating PDF:', error);
         alert('Error generating PDF. Please try again.');
     } finally {
-        // Remove PDF-specific styles
+      
         cvElement.classList.remove('pdf-render-mode');
         document.body.classList.remove('pdf-render-body');
         button.textContent = 'Download CV as PDF';
