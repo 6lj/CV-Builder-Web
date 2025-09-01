@@ -1,6 +1,6 @@
 # CV Builder
 
-A professional, web-based CV Builder application that allows users to create, preview, and download their CVs as PDFs. The application features a multi-page form for entering personal information, professional summary, experience, education, certifications, skills, and languages, with a real-time preview and an option to download a pre-built "Developer CV."
+A professional, web-based CV Builder application that allows users to create, preview, and download their CVs as PDFs. The application features a multi-page form for entering personal information, professional summary, experience, education, certifications, skills, and languages.
 
 ## Features
 
